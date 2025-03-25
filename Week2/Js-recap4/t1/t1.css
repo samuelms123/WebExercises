@@ -20,6 +20,7 @@ label {
   display: block;
   width: 100%;
   padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 li button {
@@ -36,6 +37,7 @@ li input {
   position: absolute;
   margin: 1rem 3rem;
   cursor: pointer;
+  z-index: 10;
 }
 
 li input[type='checkbox']:checked + label {

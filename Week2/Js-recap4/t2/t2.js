@@ -793,10 +793,19 @@ for (let restaurant of restaurants) {
 
     modal.innerText = '';
 
-    modal.showModal();
     const nameH3 = document.createElement('h3');
     nameH3.innerText = restaurant.name;
-    modal.appendChild(nameH3);
+
+    const addressP = document.createElement('p');
+    addressP.innerText = `${restaurant.address}, ${restaurant.postalCode} ${restaurant.city}`;
+
+    const info = document.createElement('p');
+    info.innerText = `${restaurant.phone}
+                      ${restaurant.company}`;
+
+    modal.append(nameH3, addressP, info);
+
+    modal.showModal();
   });
 
   let nameTd = document.createElement('td');

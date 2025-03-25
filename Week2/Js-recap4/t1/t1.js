@@ -26,5 +26,77 @@ const todoList = [
     completed: false,
   },
 ];
+const ulElem = document.querySelector('ul');
 
-// add your code here
+function createItem(id, task, completed) {
+  const liElem = document.createElement('li');
+
+  const inputElem = document.createElement('input');
+  inputElem.id = `todo-${id}`;
+  inputElem.type = 'checkbox';
+  inputElem.checked = completed;
+
+  const deleteBtn = document.createElement('button');
+  deleteBtn.innerText = 'Del';
+
+  deleteBtn.addEventListener('click', function () {
+    const index = todoList.findIndex((t) => t.id === id);
+    if (index > -1) {
+      todoList.splice(index, 1);
+    }
+
+    ulElem.removeChild(liElem);
+    console.log(todoList);
+  });
+
+  inputElem.addEventListener('change', function () {
+    task.completed = inputElem.checked;
+    console.log(`
+                Task: ${id}
+                Mission:  ${task}
+                Completed: ${completed}
+                `);
+  });
+
+  const labelElem = document.createElement('label');
+  labelElem.htmlFor = `todo-${id}`;
+  labelElem.innerText = task;
+
+  liElem.append(inputElem, labelElem, deleteBtn);
+  ulElem.append(liElem);
+}
+
+for (let task of todoList) {
+  createItem(task.id, task.task, task.completed);
+}
+
+const modal = document.querySelector('dialog');
+const addBtn = document.querySelector('.add-btn');
+const form = document.querySelector('form');
+const input = form.querySelector('input');
+
+addBtn.addEventListener('click', function () {
+  modal.showModal();
+});
+
+form.addEventListener('submit', function (event) {
+  event.preventDefault();
+
+  const taskValue = input.value.trim();
+
+  if (taskValue) {
+    const idNew = todoList.length + 1;
+
+    todoList.push({
+      id: idNew,
+      task: taskValue,
+      completed: false,
+    });
+
+    console.log(todoList);
+
+    createItem(idNew, taskValue, false);
+
+    modal.close();
+  }
+});
